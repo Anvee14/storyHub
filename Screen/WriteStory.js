@@ -1,7 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import db from '../config.js'
+import firebase, { database } from 'firebase'
 import { StyleSheet, Text, View, Button,TouchableOpacity,Image,TextInput} from 'react-native';
+import config from '../config';
 export default class WriteStory extends React.Component{
+  submitStory(){
+    database.ref('/').update({
+     story:this.state.story
+    })
+
+  }
   constructor(){
     super();
     this.state = {
@@ -42,6 +51,13 @@ export default class WriteStory extends React.Component{
           }}
           value={this.state.story}
         />
+        <TouchableOpacity
+        style={styles.submitButton}
+        onPress={this.submitStory}
+        >
+        <Text style={styles.buttonText}>Submit</Text>
+
+        </TouchableOpacity>
        </View>
        
 
