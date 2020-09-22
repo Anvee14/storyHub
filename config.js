@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-require("@firebase/firestore")
+   
 var firebaseConfig = {
     apiKey: "AIzaSyBv4eMoHv-_NrF7zRr7BUZl9wzPNrw4jks",
     authDomain: "storyhub-a91bf.firebaseapp.com",

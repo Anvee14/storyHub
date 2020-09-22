@@ -1,16 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import db from '../config.js'
-import firebase, { database } from 'firebase'
-import { StyleSheet, Text, View, Button,TouchableOpacity,Image,TextInput} from 'react-native';
-import config from '../config';
-export default class WriteStory extends React.Component{
-  submitStory(){
-    database.ref('/').update({
-     story:this.state.story
-    })
+import { StyleSheet, Text, View, Button,KeyboardAvoidingView,ToastAndroid,TouchableOpacity,Image,TextInput} from 'react-native';
 
-  }
+export default class WriteStory extends React.Component{
   constructor(){
     super();
     this.state = {
@@ -19,8 +12,17 @@ export default class WriteStory extends React.Component{
      story:''
     };
   }
+  submitStory(){
+    var contentRef = db.ref('story')
+    contentRef.update({
+     story:this.state.story
+    })
+    var msg = "Success"
+    ToastAndroid.show(msg,ToastAndroid.SHORT)
+  }
     render(){
   return (
+   <KeyboardAvoidingView behavior="height" enabled >
     <View style={styles.container}>
        <Text style={styles.text}></Text>
        <TextInput
@@ -45,7 +47,7 @@ export default class WriteStory extends React.Component{
           style={styles.storyBox}
           placeholder="Story"
           placeholderTextColor = "black"
-          multiline='true'
+          multiline={10}
           onChangeText={text => {
             this.setState({ story: text });
           }}
@@ -58,8 +60,9 @@ export default class WriteStory extends React.Component{
         <Text style={styles.buttonText}>Submit</Text>
 
         </TouchableOpacity>
+        
        </View>
-       
+       </KeyboardAvoidingView>
 
        
   );
